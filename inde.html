@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="form">
+            <form action="">
+                <label for="">name</label>
+                <input type="text" v-model="student.name">
+                <label for="">lastname</label>
+                <input type="text" v-model="student.lastname">
+                <label for="">studentID</label>
+                <input type="text" v-model="student.studentid">
+                <label for="">email</label>
+                <input type="text" v-model="student.email">
+                <label for="">gpa</label>
+                <input type="text" v-model="student.gpa">
+            </form>
+        </div>
+        <div class="data">            
+            <button @click="push()">submit</button>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>lastname</td>
+                    <td>studentID</td>
+                    <td>email</td>
+                    <td>gpa</td>
+                    <td>delete</td>
+                </tr>
+                <tr v-for="(item,index) in students" v-if="(item.gpa<2.00)" v-bind:style="{color:'red' , 'font-weight':'bold'}">
+                    <td> {{item.name}} </td>
+                    <td> {{item.lastname}} </td>
+                    <td> {{item.studentid}} </td>
+                    <td> {{item.email}} </td>
+                    <td> {{item.gpa}} </td>
+                    <td> <button @click="Del(index)">delete</button> </td>
+                <tr v-for="(item,index) in students" v-if="(item.gpa>2.00)">
+                    <td> {{item.name}} </td>
+                    <td> {{item.lastname}} </td>
+                    <td> {{item.studentid}} </td>
+                    <td> {{item.email}} </td>
+                    <td> {{item.gpa}} </td>
+                    <td> <button @click="Del(index)">delete</button> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            student:{
+                name:"",
+                lastname:"",
+                studentid:"",
+                email:"",
+                gpa:"",
+            },
+            students:[
+                {name:'ice',lastname:'beaer',studentid:'630000000',email:'asdf@gamil.com',gpa:'3.00'},
+                {name:'ice',lastname:'beaer',studentid:'630000000',email:'asdf@gamil.com',gpa:'1.00'},
+                {name:'ice',lastname:'beaer',studentid:'630000000',email:'asdf@gamil.com',gpa:'3.00'},
+                {name:'ice',lastname:'beaer',studentid:'630000000',email:'asdf@gamil.com',gpa:'1.95'},
+            ]
+        },
+        methods:{
+            push:function(){
+                this.students.push({
+                    name:this.student.name,
+                    lastname:this.student.lastname,
+                    studentid:this.student.studentid,
+                    email:this.student.email,
+                    gpa:this.student.gpa,
+                })
+            },
+            Del:function(m){
+                this.students.splice(m,1);
+            }
+        }
+    })
+</script>
+</html>
